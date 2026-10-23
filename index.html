@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nero Bot – Discord Bot Dashboard</title>
+  <meta name="description" content="Verwalte Nero Bot für deinen Discord-Server: Einstellungen, Willkommen, Tickets und Moderation an einem Ort.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://YOUR-PROJECT.pages.dev/">
+  <meta property="og:title" content="Nero Bot Dashboard">
+  <meta property="og:description" content="Die zentrale Verwaltung für deinen Discord-Server.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#111827">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Nero Bot Startseite"><span class="brand-mark">N</span><span>NERO<span class="brand-light">BOT</span></span></a>
+    <a class="text-link" href="#features">Funktionen</a>
+  </header>
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow"><span class="pulse"></span> DISCORD MANAGEMENT</div>
+      <h1>Dein Server.<br><span>Deine Kontrolle.</span></h1>
+      <p class="hero-copy">Verwalte Nero Bot über ein übersichtliches Dashboard. Melde dich sicher mit Discord an und wähle einen Server aus, den du verwalten darfst.</p>
+      <button id="login-button" class="primary-button" type="button"><span class="discord-icon">◉</span> Mit Discord anmelden <span aria-hidden="true">↗</span></button>
+      <p class="small-note">Sichere Anmeldung über Discord OAuth2. Dein Discord-Passwort wird nicht an Nero Bot übermittelt.</p>
+      <div id="notice" class="notice" role="status" hidden></div>
+    </section>
+    <section id="dashboard" class="dashboard hidden" aria-live="polite">
+      <div class="section-heading">
+        <div><p class="eyebrow">CONTROL CENTER</p><h2>Dein Dashboard</h2></div>
+        <div class="user-chip"><span id="avatar" class="avatar">N</span><span id="username">Discord-Nutzer</span><button id="logout-button" class="quiet-button" type="button">Abmelden</button></div>
+      </div>
+      <div class="dashboard-grid">
+        <aside class="panel server-panel">
+          <div class="panel-heading"><h3>Deine Server</h3><span class="counter" id="server-count">0</span></div>
+          <p class="muted">Nur Server, die du verwalten darfst.</p>
+          <div id="guild-list" class="guild-list"><div class="skeleton"></div><div class="skeleton"></div></div>
+        </aside>
+        <section class="panel settings-panel">
+          <div id="empty-state" class="empty-state"><div class="empty-symbol">⌘</div><h3>Wähle einen Server</h3><p>Wähle links einen Server, um die Nero-Einstellungen zu öffnen.</p></div>
+          <div id="settings-view" class="hidden">
+            <div class="panel-heading"><div><p class="eyebrow">SERVER SETTINGS</p><h3 id="selected-guild-name">Server</h3></div><span id="bot-state" class="status-pill">Status prüfen</span></div>
+            <div id="bot-missing" class="callout hidden"><strong>Nero Bot ist noch nicht auf diesem Server.</strong><p>Füge den Bot zuerst hinzu. Danach kannst du diesen Server konfigurieren.</p><a id="invite-link" class="secondary-link" href="#" target="_blank" rel="noopener">Nero Bot hinzufügen ↗</a></div>
+            <form id="settings-form">
+              <fieldset id="settings-fields">
+                <div class="setting-block">
+                  <div class="setting-copy"><h4>Willkommenssystem</h4><p>Willkommensnachricht für neue Mitglieder konfigurieren.</p></div>
+                  <label class="switch"><input id="welcome-enabled" type="checkbox"><span></span><em>Aktiv</em></label>
+                </div>
+                <label class="field-label" for="welcome-channel">Willkommenskanal-ID</label>
+                <input id="welcome-channel" class="text-input" inputmode="numeric" placeholder="z. B. 123456789012345678">
+                <label class="field-label" for="welcome-message">Willkommensnachricht</label>
+                <textarea id="welcome-message" class="text-input" rows="3" maxlength="1500" placeholder="Willkommen {user} auf {server}!"></textarea>
+                <div class="separator"></div>
+                <div class="setting-block">
+                  <div class="setting-copy"><h4>Ticketsystem</h4><p>Ticketpanel und Support-Rolle festlegen.</p></div>
+                  <label class="switch"><input id="tickets-enabled" type="checkbox"><span></span><em>Aktiv</em></label>
+                </div>
+                <label class="field-label" for="ticket-channel">Ticket-Panel-Kanal-ID</label>
+                <input id="ticket-channel" class="text-input" inputmode="numeric" placeholder="Kanal-ID">
+                <label class="field-label" for="support-role">Support-Rollen-ID</label>
+                <input id="support-role" class="text-input" inputmode="numeric" placeholder="Rollen-ID">
+                <div class="separator"></div>
+                <div class="setting-block">
+                  <div class="setting-copy"><h4>Moderation</h4><p>Moderationsfunktionen für diesen Server als aktiv markieren.</p></div>
+                  <label class="switch"><input id="moderation-enabled" type="checkbox"><span></span><em>Aktiv</em></label>
+                </div>
+                <label class="field-label" for="log-channel">Protokoll-Kanal-ID</label>
+                <input id="log-channel" class="text-input" inputmode="numeric" placeholder="Kanal-ID (optional)">
+                <div class="form-footer"><span id="save-status" class="muted" role="status"></span><button class="primary-button compact" type="submit">Einstellungen speichern</button></div>
+              </fieldset>
+            </form>
+          </div>
+        </section>
+      </div>
+      <section id="owner-panel" class="panel owner-panel hidden">
+        <div class="panel-heading"><div><p class="eyebrow">RESTRICTED</p><h3>Owner-Bereich</h3></div><span class="status-pill owner-pill">Owner</span></div>
+        <p class="muted">Nur für die in Cloudflare hinterlegte Owner-Discord-ID.</p>
+        <div id="owner-info" class="owner-info">Lade Status …</div>
+      </section>
+    </section>
+    <section id="features" class="features">
+      <article class="feature-card"><span class="feature-icon">◈</span><h3>Ein zentraler Ort</h3><p>Wichtige Einstellungen für deinen Discord-Server klar strukturiert.</p></article>
+      <article class="feature-card"><span class="feature-icon">⌁</span><h3>Discord OAuth2</h3><p>Die Anmeldung erfolgt über Discord. Nero sieht dein Passwort nicht.</p></article>
+      <article class="feature-card"><span class="feature-icon">⛨</span><h3>Geschützt</h3><p>Serverberechtigungen und Owner-Zugriff werden serverseitig geprüft.</p></article>
+    </section>
+  </main>
+  <footer><span>© <span id="year"></span> Nero Bot</span><span>Community-Verwaltung für Discord</span></footer>
+</body>
+</html>

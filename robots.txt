@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://YOUR-PROJECT.pages.dev/sitemap.xml
