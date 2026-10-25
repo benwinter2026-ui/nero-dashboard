@@ -1,0 +1,1 @@
+Cloudflare Pages maps functions/api/auth/login.js to /api/auth/login, etc. This file is informational only.
